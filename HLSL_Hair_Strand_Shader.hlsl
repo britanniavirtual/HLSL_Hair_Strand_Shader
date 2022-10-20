@@ -12,9 +12,9 @@ cbuffer MatrixBuffer : register(b7)
 	float4x4 projectionMatrix;
 };
 
-struct PixelIn3
+struct VertexOut
 {
-	float3 top : NORMAL;
+	float3 top : POSITION0;
    	float3 bottom : POSITION1;
 	float3 nextTop : POSITION2;
 	float3 nextBottom : POSITION3;
@@ -36,15 +36,6 @@ cbuffer CamBuffer : register(b1)
     float padding;
 };
 
-//Material of the current object
-cbuffer MaterialBuffer : register(b4)
-{
-	float4 CurAmbient;
-	float4 CurDiffuse;
-	float4 CurSpecular;
-	float4 CurReflect;
-};
-
 
 //Vertex desc
 struct VertexIn3
@@ -52,7 +43,7 @@ struct VertexIn3
 	uint vertexId : SV_VertexId;
 
 	float3 top : POSITION0;//Positions of the current billboard received as vertex data
-    	float3 bottom : POSITION1;
+    float3 bottom : POSITION1;
 	float3 nextTop : POSITION2;
 	float3 nextBottom : POSITION3;
 	float2 widths : TEXCOORD0;
@@ -66,9 +57,9 @@ float4 PS(GeoOut input) : SV_TARGET
 
 
 //[Vertex shader]
-PixelIn3 VS(VertexIn3 input)
+VertexOut VS(VertexIn3 input)
 {
-	PixelIn3 output;
+	VertexOut output;
 
 	output.vertexId = input.vertexId;
 
@@ -102,7 +93,7 @@ PixelIn3 VS(VertexIn3 input)
 
 //[Strand GS]
 [maxvertexcount(4)]
-void GS(point PixelIn3 input[1], uint primID : SV_PrimitiveID, inout TriangleStream<GeoOut> OutputStream)
+void GS(point VertexOut input[1], uint primID : SV_PrimitiveID, inout TriangleStream<GeoOut> OutputStream)
 {
 	float4 testColor = {0,0,0,1};
 
