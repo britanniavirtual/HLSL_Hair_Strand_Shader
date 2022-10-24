@@ -17,7 +17,7 @@ cbuffer CameraBuffer : register(b1)
 };
 
 //Vertex desc
-struct VertexIn3
+struct VertexIn
 {
 	float3 top : POSITION0;
     float3 bottom : POSITION1;
@@ -26,14 +26,8 @@ struct VertexIn3
 	float2 widths : TEXCOORD0;
 };
 
-//Vertex desc
-struct VertexInDouble
-{
-    float3 Pos1 : POSITION1;
-    float3 Pos2 : POSITION2;
-};
 
-struct PixelIn3
+struct PixelIn
 {
 	float3 top : NORMAL;
     float3 bottom : POSITION1;
@@ -49,9 +43,9 @@ struct VertexOut
 };
 
 //[Vertex shader]
-PixelIn3 VS(VertexIn3 input)
+PixelIn3 VS(VertexIn input)
 {
-	PixelIn3 output;
+	PixelIn output;
 
 	output.top.x = input.top.x;
 	output.top.y = input.top.y;
@@ -76,7 +70,7 @@ PixelIn3 VS(VertexIn3 input)
 }
 
 //[Pixel shader]
-float4 PS(PixelIn3 input) : SV_TARGET
+float4 PS(PixelIn input) : SV_TARGET
 {
 	float4 newCol;
 	newCol.x = 1.0;
@@ -93,7 +87,7 @@ struct GeoOut
 };
 
 [maxvertexcount(4)]
-void GS(point PixelIn3 input[1], uint primID : SV_PrimitiveID, inout TriangleStream<GeoOut> OutputStream)
+void GS(point PixelIn input[1], uint primID : SV_PrimitiveID, inout TriangleStream<GeoOut> OutputStream)
 {
 	const bool CLOSE_BILLBOARD_TIP = true;
 
