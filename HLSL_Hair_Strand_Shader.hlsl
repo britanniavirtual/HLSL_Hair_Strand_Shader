@@ -12,15 +12,15 @@ cbuffer MatrixBuffer : register(b7)
 
 cbuffer CameraBuffer : register(b1)
 {
-    float3 cameraPosition;
-    float padding;
+        float3 cameraPosition;
+        float padding;
 };
 
 //Vertex desc
 struct VertexIn
 {
 	float3 top : POSITION0;
-    float3 bottom : POSITION1;
+        float3 bottom : POSITION1;
 	float3 nextTop : POSITION2;
 	float3 nextBottom : POSITION3;
 	float2 widths : TEXCOORD0;
@@ -29,8 +29,8 @@ struct VertexIn
 
 struct PixelIn
 {
-	float3 top : NORMAL;
-    float3 bottom : POSITION1;
+	float3 top : POSITION0;
+   	float3 bottom : POSITION1;
 	float3 nextTop : POSITION2;
 	float3 nextBottom : POSITION3;
 	float width1 : TEXCOORD0;
@@ -95,11 +95,11 @@ void GS(point PixelIn input[1], uint primID : SV_PrimitiveID, inout TriangleStre
 	float strandWidth2 = input[0].width2;
 
 	float4x4 fMatrix = {
-						 0.0f, 0.0, 0.0f, 0.0f,
-                         0.0f, 0.0, 0.0f, 0.0f,
+					     0.0f, 0.0, 0.0f, 0.0f,
+                                             0.0f, 0.0, 0.0f, 0.0f,
 					     0.0f, 0.0, 0.0f, 0.0f,
 					     0.0f, 0.0, 0.0f, 0.0f
-                       };   
+                           };   
 
 	float4x4 worldViewProj = mul( worldMatrix, mul( viewMatrix , projectionMatrix ) );
 
