@@ -1,6 +1,9 @@
-/////////////////////////////////////////////////////////////////////////
-// Hair strand shader with billboards
-/////////////////////////////////////////////////////////////////////////
+/*
+ * Author: David McHale, <mchale.d@yahoo.com>
+ *
+ * HLSL hair strand shader with billboards
+ *
+*/
 
 //Standard matrix buffer
 cbuffer MatrixBuffer : register(b7)
